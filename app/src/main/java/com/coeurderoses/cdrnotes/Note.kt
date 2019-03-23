@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 //Parcelable class is used to serealize and unserealize data
 //The note class describe the elements of a note
-data class Note(var titre: String ="", var texte: String="", var nom_fichier: String="") : Parcelable{
+data class Note(var title: String ="", var text: String="", var nom_fichier: String="") : Parcelable{
 
 
 
@@ -17,12 +17,15 @@ data class Note(var titre: String ="", var texte: String="", var nom_fichier: St
     ) {
     }
         //the class which send element write them
-    override fun writeToParcel(p0: Parcel?, p1: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun writeToParcel(parcel: Parcel, p1: Int) {
+        parcel.writeString(title)
+        parcel.writeString(text)
+        parcel.writeString(nom_fichier)
     }
 
     override fun describeContents(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return 0
+
     }
 
     companion object CREATOR : Parcelable.Creator<Note> {
