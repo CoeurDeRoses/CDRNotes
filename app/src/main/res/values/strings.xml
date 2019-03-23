@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CDR Notes</string>
+    <string name="mettez_un_titre">Mettez un titre</string>
+    <string name="ecrivez_votre_note">Ecrivez votre note</string>
 </resources>

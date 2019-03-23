@@ -1,10 +1,9 @@
 package com.coeurderoses.cdrnotes
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -34,7 +33,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         recyclerViewNotes.adapter = adapterNotes
     }
 
+    //this function is used to show a note
+    fun showNoteDetail(noteIndex : Int){
+        // i take the note associated to he position provided
+        val note = notes[noteIndex]
+        //Here i create the intent to launch the note_detail activity
+        val intent = Intent(this, note_detail::class.java)
+        intent.putExtra(note_detail.EXTRA_note,note)
+        intent.putExtra(note_detail.EXTRA_note_index, noteIndex)
+        startActivity(intent)
+    }
+
     override fun onClick(view: View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        
+        if(view.tag != null)
+        {
+            showNoteDetail(view.tag as Int)
+        }
     }
 }
