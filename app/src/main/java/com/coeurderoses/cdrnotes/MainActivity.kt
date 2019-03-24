@@ -1,5 +1,6 @@
 package com.coeurderoses.cdrnotes
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //toolbar code
+        val note_toolbar = note_toolbar
+        // i replace the default toolbar by the customized toolbar
+        setSupportActionBar(note_toolbar)
 
         notes = mutableListOf()
         notes.add(Note("1","un"))
@@ -41,7 +47,41 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, note_detail::class.java)
         intent.putExtra(note_detail.EXTRA_note,note)
         intent.putExtra(note_detail.EXTRA_note_index, noteIndex)
-        startActivity(intent)
+        //startActivityForResult to take in back a result
+        //second parameter is a request code what thing i ask
+        // for example if we want read only a note or edit the note
+
+        startActivityForResult(intent, note_detail.REQUEST_edit_note)
+    }
+
+    //take result of the activity asked in showNoteDetail function
+    // by note_detail_activity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //if the user open a note and press back after then nothing have do be done
+        if(resultCode!= Activity.RESULT_OK || data==null)
+            return
+
+        //if he modify data
+        when(requestCode){
+            note_detail.REQUEST_edit_note -> EditNoteResult(data)
+        }
+    }
+
+    fun EditNoteResult(data: Intent) {
+        val note_index = data.getIntExtra(note_detail.EXTRA_note_index, -1)
+
+        val note = data.getParcelableExtra<Note>(note_detail.EXTRA_note)
+
+        saveNote(note,note_index)
+    }
+
+    //Here the function to record data
+    fun saveNote(note : Note, noteIndex : Int){
+        //here i update the note
+        notes[noteIndex] = note
+        //I notify the adapter of the change
+        adapterNotes.notifyDataSetChanged()
+
     }
 
     override fun onClick(view: View) {

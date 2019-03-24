@@ -9,14 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".note_detail"></activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Here the code to forbid the keyboard to push the element in layout over him in the top way
+       soft input mode mean virtual keyboard adjustResize mean to change dimensions of elements and adapt them-->
+        <activity android:name=".note_detail"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize" >
+
+
+            <!-- Here the code to activate a back button in the toolbar of note_detail-->
+        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
+        </activity>
+
     </application>
 
 </manifest>

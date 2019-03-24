@@ -5,8 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".note_detail">
+
+    <android.support.v7.widget.Toolbar
+        app:title="Edition de note"
+        android:id="@+id/note_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"></android.support.v7.widget.Toolbar>
     
     <EditText
+        android:layout_below="@+id/note_toolbar"
         style="@style/NoteTitleFont"
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
@@ -16,6 +24,7 @@
         android:importantForAutofill="no" tools:targetApi="o" />
 
     <EditText
+        android:layout_below="@+id/edit_title"
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
