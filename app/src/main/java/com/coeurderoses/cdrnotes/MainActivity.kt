@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // i replace the default toolbar by the customized toolbar
         setSupportActionBar(note_toolbar)
 
+        //i create the behavior relative to the button of note creation
+        note_creation.setOnClickListener(this)
+
         notes = mutableListOf()
         notes.add(Note("1","un"))
         notes.add(Note("2","deux"))
@@ -39,20 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         recyclerViewNotes.adapter = adapterNotes
     }
 
-    //this function is used to show a note
-    fun showNoteDetail(noteIndex : Int){
-        // i take the note associated to he position provided
-        val note = notes[noteIndex]
-        //Here i create the intent to launch the note_detail activity
-        val intent = Intent(this, note_detail::class.java)
-        intent.putExtra(note_detail.EXTRA_note,note)
-        intent.putExtra(note_detail.EXTRA_note_index, noteIndex)
-        //startActivityForResult to take in back a result
-        //second parameter is a request code what thing i ask
-        // for example if we want read only a note or edit the note
 
-        startActivityForResult(intent, note_detail.REQUEST_edit_note)
-    }
 
     //take result of the activity asked in showNoteDetail function
     // by note_detail_activity
@@ -75,14 +65,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         saveNote(note,note_index)
     }
 
-    //Here the function to record data
-    fun saveNote(note : Note, noteIndex : Int){
-        //here i update the note
-        notes[noteIndex] = note
-        //I notify the adapter of the change
-        adapterNotes.notifyDataSetChanged()
 
-    }
 
     override fun onClick(view: View) {
         
@@ -90,5 +73,47 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         {
             showNoteDetail(view.tag as Int)
         }
+        else
+        {
+            when(view.id){
+                R.id.note_creation -> createNote()
+            }
+        }
+    }
+
+    private fun createNote() {
+        showNoteDetail(-1)
+    }
+    //this function is used to show a note
+    fun showNoteDetail(noteIndex : Int){
+        // i take the note associated to he position provided
+        //the condition is set in this way to handle the exception of -1 and make the application to understand that
+        // if the index is not in the array() then it mean application must create a new note
+        val note = if(noteIndex<0) Note() else notes[noteIndex]
+        //Here i create the intent to launch the note_detail activity
+        val intent = Intent(this, note_detail::class.java)
+        intent.putExtra(note_detail.EXTRA_note,note)
+        intent.putExtra(note_detail.EXTRA_note_index, noteIndex)
+        //startActivityForResult to take in back a result
+        //second parameter is a request code what thing i ask
+        // for example if we want read only a note or edit the note
+
+        startActivityForResult(intent, note_detail.REQUEST_edit_note)
+    }
+
+    //Here the function to record data
+    fun saveNote(note : Note, noteIndex : Int){
+
+        if(noteIndex<0)
+        {
+            //if we create a new note we put the note in the top of the list
+            notes.add(0,note)
+        }
+        else {//here i update the note
+            notes[noteIndex] = note
+        }
+        //I notify the adapter of the change
+        adapterNotes.notifyDataSetChanged()
+
     }
 }
