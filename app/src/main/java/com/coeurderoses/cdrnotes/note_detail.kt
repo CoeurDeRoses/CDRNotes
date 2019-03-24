@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_note_detail.*
+import java.util.*
 
 //This class handle the detail of the notes
 class note_detail : AppCompatActivity() {
@@ -65,11 +66,32 @@ class note_detail : AppCompatActivity() {
                 saveNote()
                 return true
             }
+
+            R.id.action_delete -> {
+                showQuestionDelete()
+                return true
+            }
             else ->{
                 //If not i let the default behavior of the menu
                 return super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun showQuestionDelete() {
+        val confirmDelete = ConfirmationDelete(note.title)
+        confirmDelete.listener = object : ConfirmationDelete.confirmDeleteDailogListener{
+            override fun onDialogPositive() {
+
+            }
+
+            override fun onDialogNegative() {
+
+            }
+
+        }
+
+        confirmDelete.show(supportFragmentManager,"confirmDelete")
     }
 
     //WHen user press the option menu save, i create an intent with the updated note

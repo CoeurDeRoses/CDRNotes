@@ -2,4 +2,6 @@
     <string name="app_name">CDR Notes</string>
     <string name="mettez_un_titre">Mettez un titre</string>
     <string name="ecrivez_votre_note">Ecrivez votre note</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="supprimer">Supprimer</string>
 </resources>
