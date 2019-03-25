@@ -211,7 +211,8 @@ class note_detail : AppCompatActivity(), TextToSpeech.OnInitListener {
             10 ->{ if(resultCode == Activity.RESULT_OK && data!=null)
             {
                 var list_string : ArrayList<String> = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                edit_text.setText(list_string.get(0))
+                //edit_text.setText(list_string.get(0))
+                edit_text.setText(edit_text.text.toString().plus(list_string.get(0)))
             }
 
             }
