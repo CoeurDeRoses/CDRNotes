@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,8 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         note_creation.setOnClickListener(this)
 
         notes = mutableListOf()
-        notes.add(Note("1","un"))
-        notes.add(Note("2","deux"))
+
 
         //i connect the notes with the adapter
         adapterNotes = NoteAdapter(notes,this)
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val note = if(noteIndex<0) Note() else notes[noteIndex]
         //Here i create the intent to launch the note_detail activity
         val intent = Intent(this, note_detail::class.java)
-        intent.putExtra(note_detail.EXTRA_note,note)
+        intent.putExtra(note_detail.EXTRA_note,note as Parcelable)
         intent.putExtra(note_detail.EXTRA_note_index, noteIndex)
         //startActivityForResult to take in back a result
         //second parameter is a request code what thing i ask

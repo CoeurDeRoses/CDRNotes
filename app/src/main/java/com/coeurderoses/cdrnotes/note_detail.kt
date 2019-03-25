@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.sax.TextElementListener
 import android.view.Menu
 import android.view.MenuItem
@@ -105,7 +106,7 @@ class note_detail : AppCompatActivity() {
         // creation of the intent which must be send
 
         intent = Intent(ACTION_SAVE_NOTE)
-        intent.putExtra(EXTRA_note,note)
+        intent.putExtra(EXTRA_note,note as Parcelable)
         intent.putExtra(EXTRA_note_index, note_index)
 
         //setResult Method answer to the call done in startActivityForResult, in the MainActivity ->showNoteDetail method

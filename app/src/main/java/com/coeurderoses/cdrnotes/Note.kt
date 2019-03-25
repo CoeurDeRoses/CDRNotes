@@ -2,10 +2,11 @@ package com.coeurderoses.cdrnotes
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.io.Serializable
 
 //Parcelable class is used to serealize and unserealize data
 //The note class describe the elements of a note
-data class Note(var title: String ="", var text: String="", var nom_fichier: String="") : Parcelable{
+data class Note(var title: String ="", var text: String="", var nom_fichier: String="") : Parcelable, Serializable{
 
 
 
@@ -29,6 +30,9 @@ data class Note(var title: String ="", var text: String="", var nom_fichier: Str
     }
 
     companion object CREATOR : Parcelable.Creator<Note> {
+
+        private val serialVersionUid: Long = 123456789
+        //this ID is unique and make understand to the JVM the versions of the class note
         override fun createFromParcel(parcel: Parcel): Note {
             return Note(parcel)
         }
