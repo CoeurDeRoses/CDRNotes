@@ -5,6 +5,9 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.design.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout
+import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +17,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var notes : MutableList<Note>
     lateinit var adapterNotes: NoteAdapter
+    //to put the animation result between snackbar and floating botton
+    lateinit var coordinatorLayout: CoordinatorLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +46,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         recyclerViewNotes.layoutManager = LinearLayoutManager(this)
         //Now i connect the recycler view to the adapter
         recyclerViewNotes.adapter = adapterNotes
+
+        coordinatorLayout = coordinator_layout
     }
 
 
@@ -135,5 +142,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
          val note_deleted =notes.removeAt(note_index)
         deleteNoteRecorded(this,note_deleted)
         adapterNotes.notifyDataSetChanged()
+
+        Snackbar.make(coordinator_layout,"${note_deleted.title} supprimé", Snackbar.LENGTH_LONG).show()
     }
 }

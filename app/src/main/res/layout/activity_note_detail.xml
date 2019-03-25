@@ -1,35 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".note_detail">
+    android:orientation="vertical"
+    tools:context=".note_detail"
+    android:weightSum="2">
 
     <android.support.v7.widget.Toolbar
         app:title="Edition de note"
         android:id="@+id/note_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"></android.support.v7.widget.Toolbar>
+        android:background="?attr/colorPrimary"/>
     
     <EditText
-        android:layout_below="@+id/note_toolbar"
         style="@style/NoteTitleFont"
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.1"
         android:hint="@string/mettez_un_titre"
         android:inputType=""
         android:importantForAutofill="no" tools:targetApi="o" />
 
     <EditText
-        android:layout_below="@+id/edit_title"
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.8"
         android:hint="@string/ecrivez_votre_note"
         android:inputType=""
-        android:importantForAutofill="no" tools:targetApi="o"/>
+        android:importantForAutofill="no" tools:targetApi="o"
+       />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:weightSum="2"
+        style="?android:attr/buttonBarStyle">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/button_vocal"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/baseline_record_voice_over_black_24dp"
+            android:layout_margin="40dp"/>
+        <Button
+            android:id="@+id/button_user_vocal"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/baseline_settings_voice_black_24dp"
+            android:layout_margin="40dp"/>
+
+        <Button
+            android:id="@+id/button_share"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/baseline_share_black_24dp"
+            android:layout_margin="40dp"/>
+    </LinearLayout>
+
+</LinearLayout>
