@@ -21,6 +21,9 @@ class note_detail : AppCompatActivity() {
         val EXTRA_note = "note"
         val EXTRA_note_index="note_index"
         val REQUEST_edit_note = 1
+
+        val ACTION_SAVE_NOTE ="com.coeurderoses.cdrnotes.actions.ACTION_SAVE_NOTE"
+        val ACTION_DELETE_NOTE ="com.coeurdesroses.cdrnotes.actions.ACTION_DELETE_NOTE"
     }
     // association of the variables which are related to the extra
     lateinit var note : Note
@@ -82,7 +85,7 @@ class note_detail : AppCompatActivity() {
         val confirmDelete = ConfirmationDelete(note.title)
         confirmDelete.listener = object : ConfirmationDelete.confirmDeleteDailogListener{
             override fun onDialogPositive() {
-
+                deleteNote()
             }
 
             override fun onDialogNegative() {
@@ -94,19 +97,29 @@ class note_detail : AppCompatActivity() {
         confirmDelete.show(supportFragmentManager,"confirmDelete")
     }
 
-    //WHen user press the option menu save, i create an intent with the updated note
+    //When user press the option menu save, i create an intent with the updated note
     fun saveNote(){
 
         note.title = titleView.text.toString()
         note.text = textNote.text.toString()
         // creation of the intent which must be send
 
-        intent = Intent()
+        intent = Intent(ACTION_SAVE_NOTE)
         intent.putExtra(EXTRA_note,note)
         intent.putExtra(EXTRA_note_index, note_index)
 
         //setResult Method answer to the call done in startActivityForResult, in the MainActivity ->showNoteDetail method
         setResult(Activity.RESULT_OK, intent)
         finish()
+    }
+
+    fun deleteNote()
+    {
+        //the intent for the delete action to return to the MainActivity
+        intent = Intent(ACTION_DELETE_NOTE)
+        intent.putExtra(EXTRA_note_index,note_index)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+
     }
 }

@@ -60,11 +60,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     fun EditNoteResult(data: Intent) {
         val note_index = data.getIntExtra(note_detail.EXTRA_note_index, -1)
 
-        val note = data.getParcelableExtra<Note>(note_detail.EXTRA_note)
+        //Code to handle if the action is about to delete or save data
+        when(data.action){
+            note_detail.ACTION_SAVE_NOTE ->{
+                val note = data.getParcelableExtra<Note>(note_detail.EXTRA_note)
+                saveNote(note,note_index)
+            }
 
-        saveNote(note,note_index)
+            note_detail.ACTION_DELETE_NOTE ->{
+                deleteNote(note_index)
+            }
+        }
+
+
     }
-
 
 
     override fun onClick(view: View) {
@@ -115,5 +124,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //I notify the adapter of the change
         adapterNotes.notifyDataSetChanged()
 
+    }
+
+    fun deleteNote(note_index: Int) {
+        // i put the condition to be sure to delete a note which exists
+        if(note_index < 0)
+            return
+
+         notes.removeAt(note_index)
+        adapterNotes.notifyDataSetChanged()
     }
 }
