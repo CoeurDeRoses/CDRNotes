@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //i create the behavior relative to the button of note creation
         note_creation.setOnClickListener(this)
 
-        notes = mutableListOf()
+        //i load the data recorded
+        notes = loadNotes(this)
 
 
         //i connect the notes with the adapter
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     //Here the function to record data
     fun saveNote(note : Note, noteIndex : Int){
-
+        persistance(this,note)
         if(noteIndex<0)
         {
             //if we create a new note we put the note in the top of the list
@@ -131,7 +132,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(note_index < 0)
             return
 
-         notes.removeAt(note_index)
+         val note_deleted =notes.removeAt(note_index)
+        deleteNoteRecorded(this,note_deleted)
         adapterNotes.notifyDataSetChanged()
     }
 }
